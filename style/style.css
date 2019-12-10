@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+input {
+  width: 95%;
+  height: 30px;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+h2 {
+  text-align: center;
+  padding-top: 20px;
+}
+
+button {
+  width: 95%;
+  height: 40px;
+  margin-top: 30px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  align-items: center;
+}
+
+.button-double {
+  width: 47%;
+  margin-top: 30px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  width: 500px;
+  height: auto;
+  background: #fff;
+  border-radius: 10px;
+  border: 2px solid #dfe4ea;
+  margin: 50px 0 50px 0;
+}
+
+.left {
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.button-blue {
+  background-color: #0652DD;
+}
+
+.button-blue:hover {
+  background-color: #1e90ff;
+}
+
+.button-green {
+  background-color: #009432;
+}
+
+.button-green:hover {
+  background-color: #2ed573;
+}
+
+.button-gray {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+.button-red {
+  background-color: rgb(226, 21, 28);
+}
+
+.button-red:hover {
+  background-color: #fc737e;
+}
+
+.error {
+  border: 2px solid red;
+}
