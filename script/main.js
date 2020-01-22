@@ -9,6 +9,7 @@ function init() {
   form.personalPhone.addEventListener('blur', validationPhone, false);
   form.comercialPhone.addEventListener('blur', validationComercialPhone, false);
   form.birthDate.addEventListener('blur', validationAge, false);
+  form.cep.addEventListener('blur', validationCEP, false)
 }
 
 function addClassError(field) {
@@ -70,7 +71,7 @@ function validationName() {
 function validationAge() {
   let field = document.forms['register'].birthDate;
   let inputAge = field.value;
-  if(inputAge == null || inputAge == '' || parseInt(inputAge) < 18 || parseInt(inputAge) > 110) {
+  if(inputAge == null || inputAge == '') {
     console.log("add class erro input age");
     addClassError(field);
     return false;
@@ -88,7 +89,7 @@ function validationComercialPhone() {
   let field = document.forms['register'].comercialPhone;
   let inputPhone = field.value;
   if(inputPhone == null || inputPhone == '' || validatePhone(inputPhone) == false) {
-    console.log("add class erro input email");
+    console.log("add class erro input comercial phone");
     addClassError(field);
     return false;
   }
@@ -100,12 +101,55 @@ function validationPhone() {
   let field = document.forms['register'].personalPhone;
   let inputPhone = field.value;
   if(inputPhone == null || inputPhone == '' || validatePhone(inputPhone) == false) {
-    console.log("add class erro input email");
+    console.log("add class erro input phone");
     addClassError(field);
     return false;
   }
   removeClassError(field);
   return true;
+}
+
+function validateCEP(cep) {
+  let regex = /\d{8}/g;
+  return regex.test(cep);
+}
+
+function validationCEP() {
+  let field = document.forms['register'].cep;
+  let inputCEP = field.value;
+  if (inputCEP == null || inputCEP == '' || validateCEP(inputCEP) == false) {
+    console.log("add class erro input cep")
+    addClassError(field);
+    return false;
+  }
+  removeClassError(field);
+  retrieveCEP();
+  return true;
+}
+
+function retrieveCEP() {
+  let valueInputCEP = document.forms['register'].cep.value;
+    fetch(`http://viacep.com.br/ws/${valueInputCEP}/json`)
+    .then(response => {
+      if (response.status != 200) {
+        console.error("Erro ao buscar CEP no servidor!");
+        return;
+      }
+      return response.json();
+    })
+    .then(data => {
+      let fieldPublicPlace = document.forms['register'].publicPlace;
+      let fieldCity = document.forms['register'].city;
+      let fieldState = document.forms['register'].state;
+      let fieldNeighborhood = document.forms['register'].neighborhood;
+      fieldPublicPlace.value = data.logradouro;
+      fieldCity.value = data.localidade;
+      fieldState.value = data.uf;
+      fieldNeighborhood.value = data.bairro;
+    })
+    .catch(error => {
+      console.error(`Erro: ${error}`);
+    })
 }
 
 function validationForm(event) {
@@ -114,6 +158,9 @@ function validationForm(event) {
   validationEmail();
   validationAge();
   validationPhone();
+  validationComercialPhone();
+  validationName();
+  validationCEP();
 
   event.preventDefault();
 }
